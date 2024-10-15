@@ -1,18 +1,7 @@
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { Header } from '@/components/header'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Select } from '../../components/input/select'
-import { colors } from '../../constants/colors'
-import { useDataStore } from '../../store/data'
+import { colors } from '../../constants/colors';
+import { useDataStore } from '../../store/data';
 
 const schema = z.object({
   gender: z.string().min(1, { message: "O sexo é obrigatório" }),
@@ -23,9 +12,9 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function Create() {
-  const router = useRouter();
+  const router = useRouter(); 
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema),
   });
 
   const setPageTwo = useDataStore(state => state.setPageTwo);
@@ -74,6 +63,8 @@ export default function Create() {
           placeholder="Selecione o seu sexo..."
           error={errors.gender?.message}
           options={genderOptions}
+          accessibilityLabel="Selecione o seu sexo"
+          accessibilityHint="Escolha entre masculino ou feminino"
         />
 
         <Text style={styles.label}>Selecione nível de atividade física:</Text>
@@ -83,6 +74,8 @@ export default function Create() {
           placeholder="Selecione o nível de atividade física"
           error={errors.level?.message}
           options={levelOptions}
+          accessibilityLabel="Selecione seu nível de atividade física"
+          accessibilityHint="Escolha seu nível de atividade"
         />
 
         <Text style={styles.label}>Selecione seu objetivo:</Text>
@@ -92,6 +85,8 @@ export default function Create() {
           placeholder="Selecione seu objetivo"
           error={errors.objective?.message}
           options={objectiveOptions}
+          accessibilityLabel="Selecione seu objetivo"
+          accessibilityHint="Escolha seu objetivo fitness"
         />
 
         <Pressable
@@ -120,14 +115,14 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
-  button:{
+  button: {
     backgroundColor: colors.blue,
     height: 44,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
   },
-  buttonText:{
+  buttonText: {
     color: colors.white,
     fontSize: 16,
     fontWeight: 'bold'
